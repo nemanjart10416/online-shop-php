@@ -1,0 +1,16 @@
+users Table:
+    id (Primary Key): Unique identifier for each user (auto-incremented integer).
+    username: Username chosen by the user (unique).
+    email: Email address of the user (unique).
+    password: Hashed password for authentication.
+    first_name: First name of the user.
+    last_name: Last name of the user.
+    birthday: Date of birth of the user.
+    address: User's address for shipping.
+    phone: User's contact phone number.
+    role: Enumerated field (e.g., 'guest', 'registered', 'customer', 'admin') indicating the user's role.
+    status: Enumerated field indicating the user's status ('not confirmed', 'confirmed', 'blocked', etc.).
+    created_at: Timestamp indicating when the user account was created.
+    updated_at: Timestamp indicating the last update to the user account.
+
+
