@@ -5,8 +5,8 @@ $msg = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Check if the form is submitted
-    $username = $_POST["username"];
-    $password = $_POST["password"];
+    $username = UserInput::sanitize($_POST["username"]);
+    $password = UserInput::sanitize($_POST["password"]);
 
     // Authenticate user
     if(!User::authenticateUser($username, $password)){
