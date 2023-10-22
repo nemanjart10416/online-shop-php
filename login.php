@@ -3,7 +3,7 @@ include_once("assets/php/funkcije.php");
 
 $msg = "";
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if (isset($_POST["login"])) {
     // Check if the form is submitted
     $username = UserInput::sanitize($_POST["username"]);
     $password = UserInput::sanitize($_POST["password"]);
@@ -41,9 +41,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <title>Hello, world!</title>
 
-    <link rel="stylesheet" href="assets/css/style.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
-<body>
+<body class="loginPage">
 <div class="container-fluid">
 
     <div class="row">
@@ -58,10 +58,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <!-- Login Form -->
     <div class="row mt-5">
-        <div class="col-6 offset-3">
-            <h2>Login</h2>
-
-            <form method="post" action="login">
+        <div class="col-12 col-md-6 offset-md-3">
+            <form method="post" action="login" class="loginForm">
+                <h1>Login</h1>
                 <div class="mb-3">
                     <label for="username" class="form-label">Username</label>
                     <input type="text" class="form-control" id="username" name="username" required>
@@ -71,6 +70,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <input type="password" class="form-control" id="password" name="password" required>
                 </div>
                 <button type="submit" class="btn btn-primary" name="login">Login</button>
+                <div class="text-start">
+                    <br>
+                    Don't have account? register <a href="register">here</a>
+                    <br>
+                    <a href="forgot-password">forgot password</a>
+                </div>
             </form>
         </div>
     </div>

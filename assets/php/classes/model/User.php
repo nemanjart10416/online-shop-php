@@ -220,6 +220,42 @@ class User {
     }
 
     /**
+     * Checks if a username is already taken in the database.
+     *
+     * @param string $username The username to check.
+     * @return bool True if the username is taken, false otherwise.
+     */
+    public static function isUsernameTaken(string $username): bool {
+        $sql = "SELECT COUNT(*) as count FROM users WHERE username = ?";
+        $params = [$username];
+        $result = Connection::getP($sql, $params);
+
+        if ($result && $row = $result->fetch_assoc()) {
+            return (intval($row['count']) > 0);
+        }
+
+        return false;
+    }
+
+    /**
+     * Checks if an email address is already taken in the database.
+     *
+     * @param string $email The email address to check.
+     * @return bool True if the email address is taken, false otherwise.
+     */
+    public static function isEmailTaken(string $email): bool {
+        $sql = "SELECT COUNT(*) as count FROM users WHERE email = ?";
+        $params = [$email];
+        $result = Connection::getP($sql, $params);
+
+        if ($result && $row = $result->fetch_assoc()) {
+            return (intval($row['count']) > 0);
+        }
+
+        return false;
+    }
+
+    /**
      * Creates a session for the authenticated user and performs redirect based on user role.
      *
      * @param User $user The authenticated user object.

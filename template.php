@@ -1,6 +1,8 @@
 <?php
 include_once("assets/php/funkcije.php");
 
+$msg = "";
+
 ?>
 <!doctype html>
 <html lang="sr">
@@ -35,6 +37,12 @@ include_once("assets/php/funkcije.php");
 
             <div class="row">
                 <?php include_once("assets/components/navigacija.php"); ?>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <?php echo $msg; ?>
+                </div>
             </div>
 
             <div class="row mt-1">

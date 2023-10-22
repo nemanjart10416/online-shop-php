@@ -14,6 +14,46 @@
 .marked-text-2 {
   color: red;
 }
+.loginPage {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  text-align: center;
+}
+.loginPage .loginForm {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.loginPage .loginForm h1 {
+  text-align: center;
+}
+.loginPage .loginForm label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+.loginPage .loginForm input,
+.loginPage .loginForm select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+.loginPage .loginForm button {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+.loginPage .loginForm button:hover {
+  background-color: #0056b3;
+}
 /*
  * Scroll bar
  */
