@@ -1,0 +1,1 @@
+Click the following link to confirm your account: https://127.0.0.1/online-shop/confirm?token=fe5d04eaf856c5ef7d633029447211967a7a342237be47416891df227f1476a1

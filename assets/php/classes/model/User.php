@@ -150,12 +150,49 @@ class User {
                     $user['phone'], $user['status'], $user['status'], new DateTimeImmutable($user['created_at']), new DateTimeImmutable($user['updated_at'])
                 );
 
+                // Create an email confirmation token
+                $token = TokenManager::generateToken();
+
+                // Get the current date and time
+                $currentDateTime = new DateTimeImmutable();
+
+                // Add one day to the current date and time
+                $oneDayLater = $currentDateTime->modify('+1 day');
+
+                // Now $oneDayLater contains the date and time one day from now
+                ///echo $oneDayLater->format('Y-m-d H:i:s');
+
+                TokenManager::storeToken($u->getId(),$token,$oneDayLater);
+                TokenManager::sendConfirmationEmail($u->getEmail(),$token);
+
                 return $u;
             }
         }
 
         // Placeholder return value, replace this with actual logic
         throw new Exception("Failed to create user.");
+    }
+
+    /**
+     * Activates the user's account.
+     *
+     * @param int $userId The user ID to activate the account for.
+     * @return bool True if the account is successfully activated, false otherwise.
+     */
+    public static function activateAccount(int $userId): bool {
+        // Implement logic to activate the user's account (e.g., update a 'verified' flag in the users table)
+        // Example SQL query: UPDATE users SET verified = 1 WHERE id = ?
+
+        // Execute the query and handle the result
+        $sql = "UPDATE users SET status = 'confirmed' WHERE id = ?";
+        $params = [$userId];
+        $success = Connection::setP($sql, $params);
+
+        if ($success) {
+            return true; // Account activated successfully
+        } else {
+            return false; // Account activation failed
+        }
     }
 
     /**

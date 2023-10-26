@@ -7,3 +7,4 @@ include_once("Functions.php");
 include_once("Templates.php");
 include_once("Validator.php");
 include_once("model/User.php");
+include_once("model/TokenManager.php");

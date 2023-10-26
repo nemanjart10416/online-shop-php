@@ -23,19 +23,56 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         } elseif (User::isEmailTaken($email)) {
             $error_message = "Email is already taken.";
         } else {
-            // Hash the password before storing it in the database
-            $hashed_password = password_hash($password, PASSWORD_BCRYPT);
+            //validate fields
+            $data = [
+                'username' => $username,
+                'email' => $email,
+                'password' => $password,
+                'name' => $firstName,
+                'last name' => $lastName,
+                'birthday' => $birthday->format('Y-m-d'),
+                'address' => $address,
+                'phone' => $phone
+            ];
 
-            // Create a new user in the database
-            $new_user = User::createUser($username, $email, $hashed_password, $firstName, $lastName, $birthday, $address, $phone);
+            $rules = [
+                'username' => 'required|min:5|max:20',
+                'email' => 'required|min:5|max:90|email',
+                'password' => 'required|min:8|max:50',
+                'name' => 'required|min:3|max:50',
+                'last name' => 'required|min:3|max:50',
+                'birthday' => 'required|date',
+                'address' => 'required|min:3|max:50',
+                'phone' => 'required',
+            ];
 
-            if ($new_user) {
-                // Redirect to login page after successful registration
-                header("Location: login.php");
-                exit();
+            $validator = new Validator($data, $rules);
+
+            if ($validator->validate()) {
+                // Hash the password before storing it in the database
+                $hashed_password = password_hash($password, PASSWORD_BCRYPT);
+
+                // Create a new user in the database
+                $new_user = User::createUser($username, $email, $hashed_password, $firstName, $lastName, $birthday, $address, $phone);
+
+                if ($new_user) {
+                    // Redirect to login page after successful registration
+                    header("Location: login.php");
+                    exit();
+                } else {
+                    $error_message = "Registration failed. Please try again later.";
+                }
             } else {
-                $error_message = "Registration failed. Please try again later.";
+                $errors = $validator->getErrors();
+
+                foreach ($errors as $field => $fieldErrors) {
+                    foreach ($fieldErrors as $error) {
+                        $msg .= Message::danger("Error in $field: $error");
+                    }
+                }
             }
+
+
         }
     }
 }
